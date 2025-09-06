@@ -33,7 +33,7 @@ task_cmd = f'xtest_program'
 input_files = []
 
 # Number of nodes
-nnodes = 2
+nnodes = 1
 
 
 #######################################################################
@@ -84,7 +84,7 @@ task.constants['QARNOT_SECRET__DOCKER_REGISTRY_PASSWORD']=os.getenv("QARNOT_REGI
 task.resources.append(input_bucket)
 task.results = output_bucket
 task.snapshot(snapshot_time)
-print(f' -- Using image {docker_registry}/{docker_image}:{tocker_tag}')
+print(f' -- Using image {docker_registry}/{docker_image}:{docker_tag}')
 print(f' -- Task created {task.constants['DOCKER_CMD_MASTER']}')
 
 

@@ -33,7 +33,7 @@ task_cmd = f'xtest_program'
 input_files = []
 
 # Number of nodes
-nnodes = 1
+nnodes = 2
 
 
 #######################################################################

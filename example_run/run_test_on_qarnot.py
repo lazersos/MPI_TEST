@@ -33,7 +33,7 @@ task_cmd = f'xtest_program'
 input_files = []
 
 # Number of nodes
-nnodes = 1
+nnodes = 2
 
 
 #######################################################################
@@ -77,8 +77,10 @@ task = conn.create_task(task_name, task_prof, nnodes)
 task.constants['DOCKER_SRV'] = docker_server
 task.constants['DOCKER_REPO'] = rf'{docker_registry}/{docker_image}'
 task.constants['DOCKER_TAG'] = docker_tag
-task.constants['DOCKER_CMD_MASTER'] = rf"/bin/bash -lc '/qarnot/utils/setup_cluster $({mpi_cmd} {task_cmd}  2>&1 | tee -a ./log_{task_name}.txt)'"
-task.constants['DOCKER_CMD_WORKER'] = rf"/bin/bash -c '/qarnot/utils/setup_cluster'"
+task.constants['DOCKER_CMD_MASTER'] = rf'/qarnot/utils/setup_cluster {mpi_cmd} {task_cmd}'
+task.constants['DOCKER_CMD_WORKER'] = rf"/qarnot/utils/setup_cluster"
+#task.constants['DOCKER_CMD_MASTER'] = rf"/bin/bash -lc '/qarnot/utils/setup_cluster "{mpi_cmd} {task_cmd}  2>&1 | tee -a ./log_{task_name}.txt"'"
+#task.constants['DOCKER_CMD_WORKER'] = rf"/bin/bash -c '/qarnot/utils/setup_cluster'"
 task.constants['DOCKER_REGISTRY_LOGIN'] = user
 task.constants['QARNOT_SECRET__DOCKER_REGISTRY_PASSWORD']=os.getenv("QARNOT_REGISTRY_KEY")
 task.resources.append(input_bucket)
